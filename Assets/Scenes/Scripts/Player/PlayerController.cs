@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 [RequireComponent(typeof(CharacterController))]
@@ -20,12 +21,14 @@ public class PlayerController : MonoBehaviour
     public bool canMove = true;
     
     public static PlayerController Instance;
-    
+
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     void Start()
     {
-        Instance = this;
-        
         characterController = GetComponent<CharacterController>();
 
         // Lock cursor
@@ -72,6 +75,17 @@ public class PlayerController : MonoBehaviour
             rotationX = Mathf.Clamp(rotationX, -lookXLimit, lookXLimit);
             playerCamera.transform.localRotation = Quaternion.Euler(rotationX, 0, 0);
             transform.rotation *= Quaternion.Euler(0, Input.GetAxis("Mouse X") * lookSpeed, 0);
+        }
+    }
+
+
+
+    void CheckEnemyGaze()
+    {
+        var enemy = GazeBehaviour.CurrentGazeTarget.GetComponentInParent<EnemyBehaviour>();
+        if (enemy!=null)
+        {
+            enemy.SwitchState(enemy.freezeState);
         }
     }
 }

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Tobii.Gaming;
 
@@ -9,14 +7,6 @@ public class GazeBehaviour : MonoBehaviour
     public bool useMouseForDebug = false;
 
     public static GameObject CurrentGazeTarget;
-    public Camera gazeCamera;
-
-    void Start()
-    {
-        gazeCamera = Camera.main;
-    }
-
-
 
     void Update()
     {
@@ -71,4 +61,5 @@ public class GazeBehaviour : MonoBehaviour
 
         CurrentGazeTarget = null;
     }
+
 }

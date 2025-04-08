@@ -118,8 +118,8 @@ GameObject:
   - component: {fileID: 3697777335628628723}
   - component: {fileID: 1902745200181269512}
   - component: {fileID: 7681441557255451653}
-  - component: {fileID: 3371231538488435666}
   - component: {fileID: 6318099184713459842}
+  - component: {fileID: 518079410998620988}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -280,20 +280,6 @@ MonoBehaviour:
   lookSpeed: 2
   lookXLimit: 45
   canMove: 1
---- !u!114 &3371231538488435666
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 878046016268166985}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 61bd96a31b5528f4d8ba19b45f0fdf7c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  useMouseForDebug: 1
-  gazeCamera: {fileID: 4165918166167329418}
 --- !u!114 &6318099184713459842
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -313,6 +299,20 @@ MonoBehaviour:
   keyObject: {fileID: 0}
   instructionText: {fileID: 1967487216882440185}
   tooltipText: {fileID: 4448516265817164154}
+--- !u!114 &518079410998620988
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 878046016268166985}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61bd96a31b5528f4d8ba19b45f0fdf7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  useMouseForDebug: 0
+  gazeCamera: {fileID: 0}
 --- !u!1 &1092909138518391824
 GameObject:
   m_ObjectHideFlags: 0

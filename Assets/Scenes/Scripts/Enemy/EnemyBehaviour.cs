@@ -12,6 +12,7 @@ public class EnemyBehaviour : MonoBehaviour
     public IdleState IdleState = new IdleState();
     public TeleportState teleportState = new TeleportState();
     public PatrolState patrolState = new PatrolState();
+    public FreezeState freezeState = new FreezeState();
     
     private NavMeshAgent _agent;
     private Transform _target;
@@ -34,7 +35,6 @@ public class EnemyBehaviour : MonoBehaviour
     void Start()
     {
         _target = PlayerController.Instance.transform;
-        
         _agent = GetComponent<NavMeshAgent>();    
         
         currentState = patrolState;
@@ -49,7 +49,7 @@ public class EnemyBehaviour : MonoBehaviour
     }
 
     public void SwitchState(EnemyBaseState state){
-
+        
         currentState.ExitState(this);
         currentState = state;
         state.EnterState(this);
@@ -134,7 +134,6 @@ public class EnemyBehaviour : MonoBehaviour
    {
        if (waypoints.Count <= 0) return Vector3.zero;
        int point = Random.Range(0, waypoints.Count);
-       Debug.Log(point);
        return waypoints[point].position;
    }
    

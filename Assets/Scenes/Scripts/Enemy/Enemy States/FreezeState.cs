@@ -9,7 +9,7 @@ namespace Scenes.Scripts.Enemy_States
         {
             context.GetNavAgent().ResetPath();
         }
-
+        
         public override void UpdateState(EnemyBehaviour context)
         {
             timer -= Time.deltaTime;
@@ -18,11 +18,15 @@ namespace Scenes.Scripts.Enemy_States
             {
                 context.SwitchState(context.teleportState);
             }
+            Debug.Log("frozen!");
         }
 
         public override void ExitState(EnemyBehaviour context)
         {
             
         }
+            
+        public void SeTimer(float time)=> timer = time;
+        
     }
 }
