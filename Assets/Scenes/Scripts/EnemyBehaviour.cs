@@ -34,7 +34,6 @@ public class EnemyBehaviour : MonoBehaviour
     void Start()
     {
         _target = PlayerController.Instance.transform;
-        
         _agent = GetComponent<NavMeshAgent>();    
         
         currentState = patrolState;
