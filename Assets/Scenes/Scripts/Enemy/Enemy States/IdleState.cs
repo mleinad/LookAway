@@ -34,8 +34,10 @@ namespace Scenes.Scripts.Enemy_States
             
             if (context.IsGazingAtEnemy())
             {
+                //wait for 3/4 seconds before switching 
                 context.SwitchState(context.freezeState);
             }
+            
         }
         
         public override void ExitState(EnemyBehaviour context)
