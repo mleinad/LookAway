@@ -127,6 +127,13 @@ public class EnemyBehaviour : MonoBehaviour
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(transform.position, radius);
     }
+    
+    public bool IsGazingAtEnemy()
+    {
+        var gazeTarget = GazeBehaviour.CurrentGazeTarget?.transform.parent;
+        return gazeTarget == transform;
+    }
+
 
     #region Navigation
 

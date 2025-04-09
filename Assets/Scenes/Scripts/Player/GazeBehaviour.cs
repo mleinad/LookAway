@@ -3,17 +3,17 @@ using Tobii.Gaming;
 
 public class GazeBehaviour : MonoBehaviour
 {
-    [Tooltip("Toggle this to use the mouse instead of eye tracking (for testing)")]
-    public bool useMouseForDebug = false;
 
     public static GameObject CurrentGazeTarget;
 
+    [SerializeField]
+    private string objectName;
     void Update()
     {
         Ray gazeRay;
         bool rayReady = false;
 
-        if (!useMouseForDebug && TobiiAPI.IsConnected)
+        if (TobiiAPI.IsConnected)
         {
             GazePoint gazePoint = TobiiAPI.GetGazePoint();
 
@@ -22,44 +22,37 @@ public class GazeBehaviour : MonoBehaviour
                 CurrentGazeTarget = null;
                 return;
             }
-
+            
             gazeRay = Camera.main.ScreenPointToRay(gazePoint.Screen);
-            rayReady = true;
-        }
-        else
-        {
-            gazeRay = Camera.main.ScreenPointToRay(Input.mousePosition);
-            rayReady = true;
-        }
 
-        if (rayReady)
-        {
-            Debug.DrawRay(gazeRay.origin, gazeRay.direction * 20f, Color.green);
-        }
+        
+            RaycastHit hit;
 
-        RaycastHit hit;
-
-        if (Physics.Raycast(gazeRay, out hit))
-        {
-            if (hit.collider != null)
+        
+            if (Physics.Raycast(gazeRay, out hit))
             {
-                GameObject hitObject = hit.collider.gameObject;
-
-                if (hitObject != null)
+                if (hit.collider != null)
                 {
-                    MeshRenderer mesh = hitObject.GetComponent<MeshRenderer>();
-                    if (mesh != null)
-                    {
-                        Debug.Log("Hit object: " + hitObject.name);
-                    }
+                    GameObject hitObject = hit.collider.gameObject;
 
-                    CurrentGazeTarget = hitObject;
-                    return;
+                    if (hitObject != null)
+                    {
+                        MeshRenderer mesh = hitObject.GetComponent<MeshRenderer>();
+                        if (mesh != null)
+                        {
+                            //Debug.Log("Hit object: " + hitObject.name);
+                        }
+
+                        objectName = CurrentGazeTarget?.ToString();
+                        CurrentGazeTarget = hitObject;
+                        return;
+                    }
                 }
             }
+
         }
 
         CurrentGazeTarget = null;
     }
-
+    
 }

@@ -13,11 +13,18 @@ namespace Scenes.Scripts.Enemy_States
         {
             Debug.Log("Chase");
             context.GetNavAgent().SetDestination(context.GetPlayerTransform().position);
+
+            if (context.IsGazingAtEnemy())
+            {
+                context.SwitchState(context.freezeState);
+            }
         }
 
         public override void ExitState(EnemyBehaviour context)
         {
             
         }
+        
+        
     }
 }

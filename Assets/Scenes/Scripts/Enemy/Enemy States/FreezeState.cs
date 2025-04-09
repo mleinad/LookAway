@@ -7,23 +7,20 @@ namespace Scenes.Scripts.Enemy_States
         private float timer;
         public override void EnterState(EnemyBehaviour context)
         {
-            context.GetNavAgent().ResetPath();
+            context.GetNavAgent().isStopped = true;
         }
         
         public override void UpdateState(EnemyBehaviour context)
         {
-            timer -= Time.deltaTime;
-
-            if (timer <= 0)
+            if (!context.IsGazingAtEnemy())
             {
-                context.SwitchState(context.teleportState);
+                context.SwitchState(context.chaseState);
             }
-            Debug.Log("frozen!");
         }
 
         public override void ExitState(EnemyBehaviour context)
         {
-            
+            context.GetNavAgent().isStopped = false;
         }
             
         public void SeTimer(float time)=> timer = time;
