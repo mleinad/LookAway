@@ -15,7 +15,6 @@ public class GazeBehaviour : MonoBehaviour
 
         if (TobiiAPI.IsConnected)
         {
-            
             GazePoint gazePoint = TobiiAPI.GetGazePoint();
 
             if (!gazePoint.IsValid || !gazePoint.IsRecent())
