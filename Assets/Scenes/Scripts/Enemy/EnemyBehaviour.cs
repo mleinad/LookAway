@@ -1,7 +1,9 @@
 using System.Collections.Generic;
 using Scenes.Scripts.Enemy_States;
+using UnityEditor.Animations;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Serialization;
 
 public class EnemyBehaviour : MonoBehaviour
 { 
@@ -16,14 +18,16 @@ public class EnemyBehaviour : MonoBehaviour
     
     private NavMeshAgent _agent;
     private Transform _target;
-    public float radius = 5f;
+    public float killRadius = 5f;
+    public float detectRadius = 5f;
     
     [Header("Detection Settings")]
     [SerializeField] private float detectionDistance = 10f;
     [SerializeField] private float fieldOfViewAngle = 60f; // Total FOV in degrees
     [SerializeField] private Color debugRayColor = Color.red;
     
-
+    public Animator animator;
+    
     [SerializeField]
     private float speed = 10;
 
@@ -46,6 +50,12 @@ public class EnemyBehaviour : MonoBehaviour
     {
         currentState.UpdateState(this);
         state = currentState.ToString();
+
+
+        if (Input.GetKeyUp(KeyCode.Space))
+        {
+            SwitchState(teleportState);
+        }
     }
 
     public void SwitchState(EnemyBaseState state){
@@ -108,13 +118,13 @@ public class EnemyBehaviour : MonoBehaviour
        }
    }
 
-    public bool DetectPlayerNearby()
+    public bool DetectPlayerNearby(float range)
     {
         
         if (_target != null)
         {
             float distance = Vector3.Distance(transform.position, _target.position);
-            if (distance <= radius)
+            if (distance <= range)
             {
                 return true;
             }
@@ -125,7 +135,11 @@ public class EnemyBehaviour : MonoBehaviour
     void OnDrawGizmos()
     {
         Gizmos.color = Color.green;
-        Gizmos.DrawWireSphere(transform.position, radius);
+        Gizmos.DrawWireSphere(transform.position, detectRadius);
+        
+        
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, killRadius);
     }
     
     public bool IsGazingAtEnemy()

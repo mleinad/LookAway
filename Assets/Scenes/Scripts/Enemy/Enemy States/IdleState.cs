@@ -6,18 +6,22 @@ namespace Scenes.Scripts.Enemy_States
 {
     public class IdleState : EnemyBaseState //handle animations as well 
     {
+        private static readonly int Iddle = Animator.StringToHash("idle");
         float idleTimer;
         public override void EnterState(EnemyBehaviour context)
         {
             idleTimer = Random.Range(2f, 5f);
             Debug.Log($"entered idle state with a {idleTimer} seconds timer");
+            
+            int animeInt = Random.Range(0, 4);
+            context.animator.SetInteger(Iddle, animeInt);
         }
 
         public override void UpdateState(EnemyBehaviour context)
         {
             idleTimer -= Time.deltaTime;    //waiting for random amount of time
             
-            if (context.LookForPlayer()||context.DetectPlayerNearby())
+            if (context.LookForPlayer()||context.DetectPlayerNearby(context.detectRadius))
             {
                 context.SwitchState(context.chaseState);
             }
@@ -42,7 +46,7 @@ namespace Scenes.Scripts.Enemy_States
         
         public override void ExitState(EnemyBehaviour context)
         {
-            
+            context.animator.SetInteger(Iddle, -1);
         }
     }
 }

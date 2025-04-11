@@ -20,11 +20,11 @@ RenderSettings:
   m_FogDensity: 0.01
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
-  m_AmbientSkyColor: {r: 0.06415099, g: 0.06415099, b: 0.06415099, a: 1}
+  m_AmbientSkyColor: {r: 0, g: 0, b: 0, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 1
-  m_AmbientMode: 0
+  m_AmbientMode: 3
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
   m_SkyboxMaterial: {fileID: 2100000, guid: 34a9d77a5b91b4dadbaab8d1ab41f575, type: 2}
   m_HaloStrength: 0.469
@@ -1497,7 +1497,8 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 9100000, guid: ad07e90b72b19234a930db61f80b835e, type: 2}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 65702495048144492, guid: a89a934396908fa44bbc646c2584996b, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a89a934396908fa44bbc646c2584996b, type: 3}
@@ -9594,6 +9595,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Radius
       value: 1.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6192732443721837130, guid: 9ae4b701ea126af4f9ae0842ad9dc4b1,
+        type: 3}
+      propertyPath: detectRadius
+      value: 6.83
       objectReference: {fileID: 0}
     - target: {fileID: 6192732443721837130, guid: 9ae4b701ea126af4f9ae0842ad9dc4b1,
         type: 3}

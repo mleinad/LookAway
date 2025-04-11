@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Scenes.Scripts.Enemy_States
 {
@@ -18,17 +19,27 @@ namespace Scenes.Scripts.Enemy_States
             {
                 context.SwitchState(context.freezeState);
             }
-
-
-            if (context.DetectPlayerNearby())
-            {
-                Debug.Log("Player died!");
+            
+            if (context.DetectPlayerNearby(context.killRadius))
+            {   
+                
             }
         }
 
         public override void ExitState(EnemyBehaviour context)
         {
             
+        }
+
+
+        private void HurtPlayer(float time)
+        {
+            time += Time.deltaTime;
+        }
+        private void ReloadScene()
+        {
+            Scene currentScene = SceneManager.GetActiveScene();
+            SceneManager.LoadScene(currentScene.name);
         }
         
         

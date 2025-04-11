@@ -19,29 +19,17 @@ namespace Scenes.Scripts.Enemy_States
         public override void UpdateState(EnemyBehaviour context)
         {
             timer -= Time.deltaTime;
-
-
-            if (context.LookForPlayer()||context.DetectPlayerNearby())
-            {
-                context.SwitchState(context.chaseState);
-            }
             
             if (timer <= 0)
             {
-                TeleportToRandomNavMeshPoint();
+                TeleportToRandomNavMeshPoint(context);
                 
                 EnemyBaseState nextState = context.GetRandomState(
-                    0.5f,
-                    0.2f,
-                    0.3f);
+                    0.6f,
+                    0.01f,
+                    0.39f);
                 context.SwitchState(nextState);
             }
-            
-            if (context.IsGazingAtEnemy())
-            {
-                context.SwitchState(context.freezeState);
-            }
-            
         }
 
         public override void ExitState(EnemyBehaviour context)
@@ -49,8 +37,12 @@ namespace Scenes.Scripts.Enemy_States
 
         }
         
-        public void TeleportToRandomNavMeshPoint()
+        public void TeleportToRandomNavMeshPoint(EnemyBehaviour context)
         {
+
+            agent.Warp(context.GetRandomWayPoint());
+            
+            /*
             NavMeshTriangulation navMeshData = NavMesh.CalculateTriangulation();
             int randomIndex = Random.Range(0, navMeshData.vertices.Length);
             Vector3 randomPoint = navMeshData.vertices[randomIndex];
@@ -59,7 +51,7 @@ namespace Scenes.Scripts.Enemy_States
             if (NavMesh.SamplePosition(randomPoint, out hit, 1.0f, NavMesh.AllAreas))
             {
                 agent.Warp(hit.position);
-            }
+            }*/
         }
     }
 }
