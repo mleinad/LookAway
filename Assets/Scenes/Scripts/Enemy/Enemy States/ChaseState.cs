@@ -22,7 +22,7 @@ namespace Scenes.Scripts.Enemy_States
             
             if (context.DetectPlayerNearby(context.killRadius))
             {   
-                
+                Debug.Log("Killed player!");
             }
         }
 
