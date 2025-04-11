@@ -1,9 +1,11 @@
 ﻿using System.Collections;
 using UnityEngine;
+using UnityEngine.AI;
 
 
 public class FreezeState: EnemyBaseState
 {
+    private static readonly int Idle = Animator.StringToHash("idle");
     private Coroutine graceCoroutine;
     
     private float gazeTimer = 0f;
@@ -11,10 +13,20 @@ public class FreezeState: EnemyBaseState
 
     private float graceTimer = 0f;
     private float graceDuration = 5f;
-
+    
+    private Vector3 lastAgentVelocity;
+    private NavMeshPath lastAgentPath;
+    
     public override void EnterState(EnemyBehaviour context)
     {
-        context.GetNavAgent().isStopped = true;
+        gazeTimer = 0f;
+        context.animator.SetInteger(Idle, 2);
+        
+        lastAgentVelocity = context.GetNavAgent().velocity;
+        lastAgentPath = context.GetNavAgent().path;
+        context.GetNavAgent().velocity = Vector3.zero;
+        context.GetNavAgent().ResetPath();
+        
     }
         
     public override void UpdateState(EnemyBehaviour context)
@@ -33,7 +45,7 @@ public class FreezeState: EnemyBaseState
         {
             if (graceCoroutine == null)
             {
-                graceCoroutine = context.StartCoroutine(GracePeriod(context));
+               // graceCoroutine = context.StartCoroutine(GracePeriod(context));
             }
             
             context.SwitchState(context.chaseState);
@@ -42,7 +54,8 @@ public class FreezeState: EnemyBaseState
 
     public override void ExitState(EnemyBehaviour context)
     {
-        context.GetNavAgent().isStopped = false;
+        context.GetNavAgent().velocity = lastAgentVelocity;
+        context.GetNavAgent().SetPath(lastAgentPath);
     }
     
     private IEnumerator GracePeriod(EnemyBehaviour context)

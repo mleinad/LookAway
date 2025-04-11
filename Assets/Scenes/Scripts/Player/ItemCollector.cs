@@ -18,6 +18,8 @@ public class GazeItemCollector : MonoBehaviour
 
     private int collectedCount = 0;
 
+    public bool state;
+
     void Start()
     {
         paper1.SetActive(true);

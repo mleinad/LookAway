@@ -29,9 +29,15 @@ namespace Scenes.Scripts.Enemy_States
             agent = context.GetNavAgent();
             target = context.GetRandomWayPoint();
             agent.SetDestination(target);
+            
+            agent.speed = 8f;
+            
             context.animator.SetTrigger(Motion1);
             
-            targetBlend = new Vector2(Random.Range(0f, 1f), Random.Range(0f, 1f));
+            targetBlend = new Vector2(
+                GetExtremeRandomValue(),
+                GetExtremeRandomValue()
+            );
             currentBlend = targetBlend;
             
             context.animator.SetFloat(BlendX, currentBlend.x);
@@ -40,7 +46,7 @@ namespace Scenes.Scripts.Enemy_States
 
         public override void UpdateState(EnemyBehaviour context)
         {
-            currentBlend = Vector2.Lerp(currentBlend, targetBlend, blendLerpSpeed * Time.deltaTime);
+          //  currentBlend = Vector2.Lerp(currentBlend, targetBlend, blendLerpSpeed * Time.deltaTime);
             context.animator.SetFloat(BlendX, currentBlend.x);
             context.animator.SetFloat(BlendY, currentBlend.y);
             
@@ -72,6 +78,12 @@ namespace Scenes.Scripts.Enemy_States
             agent.ResetPath();
         }
         
+        private float GetExtremeRandomValue()
+        {
+            return Random.value < 0.5f 
+                ? Random.Range(0f, 0.2f) 
+                : Random.Range(0.8f, 1f);
+        }
         
         
     }

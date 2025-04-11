@@ -13,8 +13,17 @@ namespace Scenes.Scripts.Enemy_States
             idleTimer = Random.Range(2f, 5f);
             Debug.Log($"entered idle state with a {idleTimer} seconds timer");
             
-            int animeInt = Random.Range(0, 4);
-            context.animator.SetInteger(Iddle, animeInt);
+
+            if (idleTimer >= 3)
+            {
+                context.animator.SetInteger(Iddle, 3);
+                
+            }
+            else
+            {
+                context.animator.SetInteger(Iddle, 1);
+
+            }
         }
 
         public override void UpdateState(EnemyBehaviour context)
